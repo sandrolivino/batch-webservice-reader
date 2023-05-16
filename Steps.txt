@@ -1,0 +1,19 @@
+A estrutura do projeto já está toda montada, basta apenas implementar o reader, que fará um Fetch dos dados da API disponível em:
+https://gorest.co.in/public/v1/users
+
+[] Implementar o método read() da classe UserReader
+- Criar um método auxiliar para buscar os dados da API - fetchUserDataFromAPI
+
+[] Adicionar dependência SpringWeb para utilizar o RestTemplate
+- Instanciar: private RestTemplate restTemplate = new RestTemplate();
+- Utilizar restTemplate.getForEntity(): Ele retorna um objeto, a lista de usuários se inicia na tag data. Para "desencapsular", criamos uma classe de apoio chamada ResponseUser no pacote domain.
+private List<User> fetchUserDataFromAPI() {
+      ResponseEntity<ResponseUser> response = restTemplate.getForEntity(
+              String.format("https://gorest.co.in/public/v1/users?page=%d", page),
+              ResponseUser.class);
+
+      List<User> userData = response.getBody().getData();
+
+      return userData;
+}
+
